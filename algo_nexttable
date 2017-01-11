@@ -1,0 +1,49 @@
+Algorithm	nextTable
+Input		Array of Char : A, B
+Variables	Integer : i, failPos; 
+			Boolean: flag, same; 
+			Array of Integer: subA, subB 
+
+Begin
+	B[0] := -1
+	IF A[1] = A[0] THEN
+		B[1] := -1
+	ELSE
+		B[1] := 0
+	FI
+	
+	FOR failPos := 2 TO size(A)-1 DO
+		flag := false
+		
+		FOR i := 1 to failPos-1 DO
+		
+			Compare subarray A[i to failPos-1], subA
+			with subArray A[0 to size(subA)-1], subB
+			
+			IF subA = subB THEN
+				IF A[failPos] != A[size(subA)] THEN
+					B[failPos] = size(subA)
+					flag := true
+					break
+				ELSE IF size(B) = 1 AND subB[0] != A[failPos] THEN
+					B[failPos] = 0
+					flag := true
+					break
+				ELSE
+					continue
+				FI
+			ELSE
+				IF size(B) = 1 AND subB[0] != A[failPos] THEN
+					B[failPos] = 0
+					flag := true
+					break	
+				ELSE
+					continue
+				FI
+			FI
+		OD
+		IF flag = false THEN
+			B[failPos] := -1
+		FI
+	OD
+End
